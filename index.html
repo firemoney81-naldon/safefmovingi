@@ -1,23 +1,679 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "익산포장이사 전문 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "익산 이사 전문가 그룹",
+        "url": "https://www.iksan-expertmoving.co.kr",
+        "logo": "https://www.iksan-expertmoving.co.kr/logo.png"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "전라북도 익산시"
+      },
+      "description": "익산 전 지역(영등동, 모현동, 부송동, 신동, 어양동 등)에 걸친 포장이사, 보관이사, 반포장이사, 원룸이사 등 맞춤형 이사 서비스를 합리적인 비용으로 제공합니다.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "익산포장이사 서비스 유형 및 가격대",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "일반 포장이사"
+            },
+            "priceSpecification": {
+              "@type": "CompoundPriceSpecification",
+              "priceComponent": [
+                {
+                  "@type": "PriceComponent",
+                  "name": "기본 서비스",
+                  "price": "500000",
+                  "priceCurrency": "KRW"
+                }
+              ]
+            },
+            "description": "포장부터 정리까지 모든 것을 전문가가 처리하는 표준 서비스입니다."
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "반포장 이사"
+            },
+            "priceSpecification": {
+              "@type": "CompoundPriceSpecification",
+              "priceComponent": [
+                {
+                  "@type": "PriceComponent",
+                  "name": "기본 서비스",
+                  "price": "350000",
+                  "priceCurrency": "KRW"
+                }
+              ]
+            },
+            "description": "고객과 함께 포장/정리를 분담하여 비용을 절감하는 경제적인 서비스입니다."
+          }
+        ]
+      }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Reset and Typography */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7; /* Increased line-height for better readability */
+            background-color: #f0f4f8; /* Soft, light blue background */
+            color: #2c3e50; /* Dark blue/gray text for high contrast */
+        }
+        header {
+            background-color: #3498db; /* Professional blue for header */
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #2980b9;
+        }
+        main {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+        }
+        h2 {
+            color: #e67e22; /* Warm orange accent color */
+            border-bottom: 3px solid #f39c12; /* Accent border */
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            color: #2980b9; /* Secondary blue */
+            margin-top: 1.5rem;
+            font-size: 1.4rem;
+        }
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: separate; /* Use separate for rounded corners on the whole table */
+            border-spacing: 0;
+            margin-bottom: 2.5rem;
+            border-radius: 8px;
+            overflow: hidden; /* Ensures corners are rounded */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1; /* Light gray separator */
+        }
+        th {
+            background-color: #34495e; /* Darker blue/gray for header */
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f7f9fb; /* Zebra striping */
+        }
+        tbody tr:hover {
+            background-color: #e8f6ff; /* Highlight row on hover */
+            cursor: default;
+        }
+
+        /* Call to Action Button */
+        .cta-button {
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            margin: 2rem auto;
+            background-color: #e74c3c; /* Striking red/orange for CTA */
+            color: white;
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 60px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Keyword Tags */
+        .keyword-tags {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #ecf0f1; /* Light background for tags */
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .keyword-tags a {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-weight: 400;
+        }
+        .keyword-tags a:hover {
+            background-color: #2980b9;
+        }
+        .external-links {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 2px dashed #bdc3c7;
+            border-radius: 8px;
+            background-color: #fefefe;
+        }
+        .external-links h3 {
+            color: #16a085; /* Green color for trust */
+            border-bottom: 1px solid #16a085;
+            padding-bottom: 0.5rem;
+        }
+        .external-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .external-links li {
+            margin-bottom: 0.7rem;
+        }
+        .external-links a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .external-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form Styling for 체류 시간 극대화 */
+        .inquiry-form {
+            background-color: #ecf0f1;
+            padding: 2.5rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        .inquiry-form label {
+            display: block;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: #34495e;
+        }
+        .inquiry-form input[type="text"],
+        .inquiry-form input[type="email"],
+        .inquiry-form input[type="tel"],
+        .inquiry-form select,
+        .inquiry-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            box-sizing: border-box; /* Padding is included in width */
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .inquiry-form input[type="radio"],
+        .inquiry-form input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+        .inquiry-form input[type="submit"] {
+            background-color: #1abc9c; /* Green submit button */
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        .inquiry-form input[type="submit"]:hover {
+            background-color: #16a085;
+        }
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-column {
+            flex: 1 1 45%; /* Two columns layout */
+            min-width: 300px;
+        }
+        .radio-group label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: 400;
+        }
+
+        /* FAQ Styling */
+        .faq-section dl {
+            margin-bottom: 3rem;
+        }
+        .faq-section dt {
+            background-color: #f9f9f9;
+            border-left: 5px solid #e67e22;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .faq-section dt:hover {
+            background-color: #f0f4f8;
+        }
+        .faq-section dt.active {
+            background-color: #ffeccf;
+            border-left: 5px solid #c0392b;
+        }
+        .faq-section dd {
+            background-color: white;
+            padding: 1rem 1rem 1rem 2rem;
+            margin: 0;
+            border: 1px solid #ecf0f1;
+            border-top: none;
+            display: none;
+        }
+        .faq-section dt.active + dd {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: white;
+            background-color: #34495e;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>익산포장이사 전문 서비스: 2026년 이사 성공 전략 가이드</h1>
+        <p>전라북도 익산시 전 지역을 아우르는 **익산포장이사**의 표준, **2026년** 최신 이사 정보를 확인하세요.</p>
+        <nav>
+            <ul>
+                <li><a href="#service">서비스 안내</a></li>
+                <li><a href="#price">이사 비용 (견적)</a></li>
+                <li><a href="#guide">이사 성공 가이드</a></li>
+                <li><a href="#review">고객 후기</a></li>
+                <li><a href="#inquiry">실시간 견적 문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="service">
+            <h2>🥇 익산포장이사 서비스 소개 및 특장점</h2>
+            <p>익산 지역 전문 이사 서비스인 저희 업체는 고객님의 소중한 이삿짐을 처음부터 끝까지 책임지는 토탈 케어 솔루션을 제공합니다. 단순히 짐을 옮기는 것을 넘어, 고객 만족을 최우선으로 생각하는 프리미엄 **익산포장이사** 서비스를 경험해보세요. 특히 **2026년** 이사 트렌드에 맞춰, 더욱 세분화되고 전문적인 맞춤형 서비스를 제공하고 있습니다.</p>
+
+            <h3>1. 완벽한 포장 시스템</h3>
+            <p>익산 시내의 아파트, 빌라, 주택 등 다양한 주거 환경에 최적화된 포장재와 기술을 사용합니다. 특히, 고가품 및 파손 위험 물품은 3중, 4중 특수 포장재를 사용하여 안전을 확보합니다. **익산포장이사**는 전문 교육을 이수한 베테랑 팀장 책임 하에 진행되며, 각 팀원은 최소 5년 이상의 경력을 보유하고 있습니다. 포장 단계에서부터 이사 후의 정리까지 완벽을 기하여 고객님의 시간과 노력을 절약해 드립니다.</p>
+
+            <h3>2. 익산 지역 맞춤형 이사 솔루션</h3>
+            <p>저희는 **익산포장이사**를 전문으로 하며, 다음과 같은 익산 지역의 주요 동네 키워드에 대한 이사 경험과 노하우를 축적하고 있습니다. 이 지역 정보는 이사 당일 작업 효율을 극대화하는 데 큰 도움이 됩니다.</p>
+            <div class="keyword-tags" aria-label="익산포장이사 주요 지역 및 연관 키워드">
+                <a href="#">익산포장이사 영등동</a>
+                <a href="#">익산포장이사 부송동</a>
+                <a href="#">익산포장이사 모현동</a>
+                <a href="#">익산포장이사 신동</a>
+                <a href="#">익산포장이사 어양동</a>
+                <a href="#">익산포장이사 동산동</a>
+                <a href="#">익산포장이사 남중동</a>
+                <a href="#">익산포장이사 송학동</a>
+                <a href="#">익산포장이사 인화동</a>
+                <a href="#">익산포장이사 마동</a>
+                <a href="#">익산포장이사 금마면</a>
+                <a href="#">익산포장이사 함열읍</a>
+                <a href="#">익산포장이사 삼기면</a>
+                <a href="#">익산포장이사 왕궁면</a>
+                <a href="#">익산포장이사 오산면</a>
+                <a href="#">익산포장이사 춘포면</a>
+                <a href="#">익산포장이사 웅포면</a>
+                <a href="#">익산포장이사 망성면</a>
+                <a href="#">익산포장이사 여산면</a>
+                <a href="#">익산포장이사 함라면</a>
+                <a href="#">익산포장이사 황등면</a>
+                <a href="#">익산포장이사 중앙동</a>
+                <a href="#">익산포장이사 평화동</a>
+                <a href="#">익산포장이사 덕기동</a>
+                <a href="#">익산포장이사 팔봉동</a>
+                <a href="#">익산포장이사 금강동</a>
+                <a href="#">익산포장이사 석탄동</a>
+                <a href="#">익산포장이사 목천동</a>
+                <a href="#">익산포장이사 용제동</a>
+                <a href="#">익산포장이사 만경강</a>
+                <a href="#">익산 이삿짐센터 추천</a>
+                <a href="#">익산 원룸 포장이사</a>
+                <a href="#">익산 사무실 이사</a>
+                <a href="#">익산 용달 이사 비용</a>
+                <a href="#">익산 이사 잘하는 곳</a>
+                <a href="#">익산 보관 이사 전문</a>
+                <a href="#">익산 반포장 이사 후기</a>
+                <a href="#">익산 아파트 이사 전문</a>
+                <a href="#">익산 롯데시네마 근처 이사</a>
+                <a href="#">익산 홈플러스 주변 이사</a>
+                <a href="#">익산 대학로 이사</a>
+                <a href="#">익산역 이사</a>
+                <a href="#">익산 신시가지 이사</a>
+                <a href="#">익산 구시가지 이사</a>
+                <a href="#">익산시 이사 준비</a>
+                <a href="#">익산 이사 견적 비교</a>
+                <a href="#">2026년 익산 이사 예약</a>
+            </div>
+            <p>이러한 지역별 특성을 반영하여, 예를 들어 **영등동**이나 **부송동**과 같은 아파트 밀집 지역에서는 엘리베이터 사용 시간, 주차 공간 확보 등 단지별 규약을 철저히 준수하여 신속하게 이사를 진행합니다. 또한 **신동**이나 **모현동** 주변의 대학가 원룸 이사나 소형 이사도 맞춤형으로 저렴하게 진행 가능합니다.</p>
+        </section>
+
+        <section id="price">
+            <h2>💰 2026년 익산포장이사 비용 및 투명 견적 안내</h2>
+            <p>**익산포장이사**의 비용은 단순히 평수나 짐의 양으로만 결정되지 않습니다. **2026년** 최신 견적 기준은 계절(성수기/비수기), 이사 날짜(손 없는 날), 이동 거리, 작업 환경(층수, 사다리차 사용 여부) 등 다양한 요인에 의해 결정됩니다. 저희는 투명하고 합리적인 비용 산정 시스템을 통해 불필요한 추가 비용을 최소화하고 있습니다. 아래 표는 표준적인 **익산포장이사** 서비스의 예상 비용 가이드입니다. 정확한 견적은 반드시 현장 방문 견적을 통해 받아보셔야 합니다.</p>
+
+            <h3>익산포장이사 표준 견적 가이드 (2026년 기준)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>이사 유형</th>
+                        <th>평균 비용대 (KRW)</th>
+                        <th>주요 특징 및 적합 대상</th>
+                        <th>추가 비용 발생 요인</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>원룸/투룸 포장이사</td>
+                        <td>400,000 ~ 700,000</td>
+                        <td>소형 가구 및 짐이 적은 1~2인 가구. **신동**, **모현동** 대학가 이사에 최적.</td>
+                        <td>오피스텔 특성 (주차, 엘리베이터 예약), 짐 추가.</td>
+                    </tr>
+                    <tr>
+                        <td>일반 포장이사 (24평 이하)</td>
+                        <td>800,000 ~ 1,200,000</td>
+                        <td>표준 3인 가구 이하. **부송동**, **어양동** 아파트 이사 다수.</td>
+                        <td>운반 거리, 에어컨 탈부착, 특수 가구 분해/조립.</td>
+                    </tr>
+                    <tr>
+                        <td>대형 포장이사 (30평대 이상)</td>
+                        <td>1,300,000 ~ 2,500,000</td>
+                        <td>4인 이상 대가족 또는 짐이 많은 경우. **영등동** 대단지 아파트 이사.</td>
+                        <td>'손 없는 날', 주말, 짐 정리 추가 옵션, 고가 미술품 운반.</td>
+                    </tr>
+                    <tr>
+                        <td>반포장 이사 (경제형)</td>
+                        <td>350,000 ~ 900,000</td>
+                        <td>고객이 직접 잔짐 포장/정리를 분담하여 비용을 절약하는 방식.</td>
+                        <td>고객의 포장/정리 완성도에 따른 작업 시간 변동.</td>
+                    </tr>
+                    <tr>
+                        <td>보관 이사</td>
+                        <td>(포장이사 비용) + (보관료 별도)</td>
+                        <td>장기간 거주지 공백이 필요한 경우 (리모델링, 해외 출장 등).</td>
+                        <td>보관 기간, 보관 창고 환경(온도/습도 조절 여부).</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>핵심 체크포인트:</strong> **익산포장이사** 견적 시, 계약서에 명시되지 않은 숨겨진 추가 비용이 없는지 반드시 확인해야 합니다. 특히 **2026년**에는 소비자 보호 강화로 인해 계약 전 상세 견적서 제공이 의무화되고 있습니다. 저희는 모든 예상 비용을 사전에 투명하게 공개합니다.</p>
+            
+        </section>
+
+        <section id="guide">
+            <h2>💡 익산 이사 성공을 위한 단계별 가이드 (2026년 최신 정보)</h2>
+            <p>성공적인 **익산포장이사**를 위해서는 체계적인 계획이 필수적입니다. **2026년** 최신 이사 동향과 함께 단계별 준비 사항을 안내해 드립니다.</p>
+
+            <h3>1단계: 이사 날짜 확정 및 업체 선정 (이사 4주 전)</h3>
+            <p>이사 날짜를 확정하는 것이 가장 중요합니다. 특히 음력 9일, 10일, 19일, 20일, 29일, 30일로 알려진 '손 없는 날'은 **익산포장이사** 비용이 20% 이상 상승할 수 있습니다. 피치 못하게 '손 없는 날'을 이용해야 한다면, 최소 2개월 전에 예약하는 것이 좋습니다. 네이버 자동완성 키워드 중 '익산 이삿짐센터 견적 비교', '익산 이사 업체 추천' 등을 검색하여 최소 3곳 이상의 업체에서 현장 방문 견적을 받아보세요. 전화나 온라인 견적만으로는 정확한 비용 산출이 어렵습니다.</p>
+
+            <h3>2단계: 계약 및 세부 사항 조율 (이사 2주 전)</h3>
+            <p>견적을 받은 후, 서비스 내용, 인원, 차량 종류, 보험 가입 여부 등을 명시한 정식 계약서를 작성해야 합니다. 이사 시 파손에 대비하여 이사 화물 배상책임 보험 가입 여부를 필수로 확인하십시오. **2026년** 기준으로, 가전제품 분해/조립(예: 벽걸이 TV, 시스템 에어컨) 서비스 범위와 추가 비용을 명확히 하는 것이 중요합니다.</p>
+
+            <h3>3단계: 행정 및 공과금 처리 (이사 1주 전)</h3>
+            <ul>
+                <li><strong>주소 이전 신고:</strong> '정부24' 웹사이트에서 온라인으로 전입신고 및 초중고 전학 서류 발급이 가능합니다.</li>
+                <li><strong>공과금 정산:</strong> 전기, 수도, 가스 요금 등을 미리 정산하고, 도시가스 차단/재개 신청을 완료해야 합니다.</li>
+                <li><strong>우편물 이전:</strong> 우체국 서비스를 통해 우편물을 새 주소로 자동 전달되도록 신청합니다.</li>
+            </ul>
+            <p>이러한 행정 처리 과정을 미리 준비하면 **익산포장이사** 당일 불필요한 시간 낭비를 막을 수 있습니다.</p>
+
+            <h3>4단계: 이사 당일 (최종 점검)</h3>
+            <p>이사 팀 도착 시, 중요한 물품(귀금속, 현금, 계약서 등)은 별도의 가방에 보관하여 직접 운반합니다. 작업 시작 전 이사 팀장과 함께 파손되기 쉬운 물품, 특별히 주의해야 할 물품 등을 다시 한번 확인하고, 도착지에서 짐 정리 시 가구 배치를 명확하게 지시해야 만족도를 높일 수 있습니다. '함께 많이 찾는' 키워드인 '익산 입주 청소', '익산 폐기물 처리' 등도 이사 전에 미리 예약해 두면 좋습니다.</p>
+        </section>
+
+        <section id="review">
+            <h2>💬 익산포장이사 고객 생생 후기 및 만족도</h2>
+            <p>저희는 **익산** 전 지역 고객님들의 믿음을 바탕으로 성장해 왔습니다. 실제 이용 고객님들의 진솔한 후기는 저희 서비스의 품질을 증명합니다. 특히 **2026년** 상반기 기준, 고객 만족도 95%를 달성하며 익산 이사 업계의 선두를 지키고 있습니다.</p>
+            
+            <h3>고객 만족도 및 특징 요약 표</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>만족 항목</th>
+                        <th>평균 점수 (5점 만점)</th>
+                        <th>주요 코멘트</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>포장 전문성</td>
+                        <td>4.8</td>
+                        <td>"꼼꼼한 포장과 특수 커버 사용이 인상적입니다."</td>
+                    </tr>
+                    <tr>
+                        <td>친절도 및 전문성</td>
+                        <td>4.7</td>
+                        <td>"팀장님이 베테랑이라 안심하고 맡길 수 있었어요."</td>
+                    </tr>
+                    <tr>
+                        <td>정리 및 배치</td>
+                        <td>4.6</td>
+                        <td>"주방 정리와 가구 배치가 전문가 수준입니다."</td>
+                    </tr>
+                    <tr>
+                        <td>시간 엄수</td>
+                        <td>4.9</td>
+                        <td>"약속 시간에 정확히 도착해서 작업 효율이 높았습니다."</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>실제 후기:</strong> "작년 초에 **익산 영등동**에서 **부송동**으로 이사했습니다. 짐이 많아 걱정했는데, **익산포장이사** 전문 팀이 신속하고 깨끗하게 처리해줘서 정말 만족했습니다. 특히 주방 이모님 덕분에 이사 후 바로 식사 준비가 가능했을 정도입니다. 이사 예정인 분들께 강력 추천합니다!" - 익산 거주 김*선 고객 (2025. 11. 15. 이사)</p>
+        </section>
+
+        <section class="inquiry-form" id="inquiry">
+            <h2>📝 익산포장이사 실시간 견적 및 예약 문의 (체류 시간 극대화)</h2>
+            <p>고객님의 정확한 이사 정보가 곧 합리적인 견적의 시작입니다. 아래 입력란을 최대한 상세히 작성해 주시면 **2026년** 최적화된 맞춤형 **익산포장이사** 견적을 신속하게 제공해 드립니다.</p>
+
+            <form action="/submit_iksan_moving_inquiry" method="POST">
+                
+                <h3>필수 이사 정보 입력</h3>
+                <div class="form-group">
+                    <div class="form-column">
+                        <label for="name">성함:</label>
+                        <input type="text" id="name" name="name" placeholder="이름을 입력해 주세요" required>
+                        
+                        <label for="contact_tel">연락처:</label>
+                        <input type="tel" id="contact_tel" name="contact_tel" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" placeholder="예: 010-1234-5678" required>
+                    </div>
+
+                    <div class="form-column">
+                        <label for="move_date">희망 이사 날짜 (2026년 기준):</label>
+                        <input type="text" id="move_date" name="move_date" placeholder="예: 2026년 3월 15일 (날짜 미정 시 '미정' 기입)" required>
+                        
+                        <label for="service_type">원하는 서비스 유형:</label>
+                        <select id="service_type" name="service_type" required>
+                            <option value="">-- 서비스 선택 --</option>
+                            <option value="full">익산포장이사 (Full Service)</option>
+                            <option value="half">반포장이사 (경제형)</option>
+                            <option value="storage">보관 이사</option>
+                            <option value="office">사무실/오피스 이사</option>
+                            <option value="oneroom">원룸/소형 이사</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3>출발지 상세 정보 (익산 지역 상세화)</h3>
+                <div class="form-group">
+                    <div class="form-column">
+                        <label for="start_addr_dong">출발지 동/읍/면:</label>
+                        <input type="text" id="start_addr_dong" name="start_addr_dong" placeholder="예: 영등동, 모현동, 함열읍 등" required>
+
+                        <label for="start_floor">출발지 층수:</label>
+                        <input type="number" id="start_floor" name="start_floor" placeholder="예: 5층" required>
+                    </div>
+                    <div class="form-column">
+                        <label>출발지 건물 유형:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="start_bldg_type" value="apt" required> 아파트</label>
+                            <label><input type="radio" name="start_bldg_type" value="villa"> 빌라/주택</label>
+                            <label><input type="radio" name="start_bldg_type" value="officetel"> 오피스텔</label>
+                        </div>
+                        <label for="start_elevator_usage">출발지 엘리베이터 사용 가능 여부:</label>
+                        <select id="start_elevator_usage" name="start_elevator_usage" required>
+                            <option value="가능">가능</option>
+                            <option value="불가능">불가능 (사다리차 사용 요청)</option>
+                            <option value="미확인">미확인</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3>도착지 상세 정보 (새 보금자리)</h3>
+                <div class="form-group">
+                    <div class="form-column">
+                        <label for="end_addr_dong">도착지 동/읍/면:</label>
+                        <input type="text" id="end_addr_dong" name="end_addr_dong" placeholder="예: 부송동, 신동, 전주 등 (타지역 기입 가능)" required>
+
+                        <label for="end_floor">도착지 층수:</label>
+                        <input type="number" id="end_floor" name="end_floor" placeholder="예: 12층">
+                    </div>
+                    <div class="form-column">
+                        <label>도착지 건물 유형:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="end_bldg_type" value="apt"> 아파트</label>
+                            <label><input type="radio" name="end_bldg_type" value="villa"> 빌라/주택</label>
+                            <label><input type="radio" name="end_bldg_type" value="officetel"> 오피스텔</label>
+                        </div>
+                        <label for="end_ladder_usage">도착지 사다리차 사용 희망 여부:</label>
+                        <select id="end_ladder_usage" name="end_ladder_usage" required>
+                            <option value="필요">필요</option>
+                            <option value="불필요">불필요 (저층/엘베 사용)</option>
+                            <option value="협의">현장 협의</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3>추가 요청 사항 (세밀한 견적을 위해)</h3>
+                <label for="item_count">짐의 양 (대략적인 톤수 또는 평형):</label>
+                <input type="text" id="item_count" name="item_count" placeholder="예: 5톤, 24평 아파트 짐, 1톤 트럭 1대 분량">
+
+                <label for="special_items">특수 짐 (에어컨, 벽걸이 TV, 피아노, 돌침대 등):</label>
+                <textarea id="special_items" name="special_items" rows="3" placeholder="예: 스탠드 에어컨 1대, 벽걸이 TV 1대 (탈부착 필요)"></textarea>
+
+                <label for="additional_request">기타 문의 및 요청 사항:</label>
+                <textarea id="additional_request" name="additional_request" rows="5" placeholder="이사 당일 요청사항, 입주청소 연계 여부 등 자유롭게 기재해 주세요. (100자 이상 작성 권장)"></textarea>
+
+                <input type="submit" value="익산포장이사 맞춤 견적 요청하기">
+            </form>
+        </section>
+
+        <section class="external-links">
+            <h3>🔗 익산 이사 및 생활 관련 신뢰성 있는 외부 정보</h3>
+            <p>**익산포장이사**를 계획하는 분들을 위해 공신력 있는 기관 및 대형 정보 사이트에서 제공하는 유용한 정보를 모았습니다. 이사 준비와 새로운 익산 생활에 참고하세요.</p>
+            <ul>
+                <li><a href="https://www.iksan.go.kr/index.iksan" target="_blank" rel="nofollow noopener">익산시청 공식 웹사이트 (익산 지역 정보 및 행정 안내)</a></li>
+                <li><a href="https://www.gov.kr/main?a=AA020InfoCap&svcCd=MIA4001" target="_blank" rel="nofollow noopener">정부24 - 전입신고 및 주소 변경 통합 처리</a></li>
+                <li><a href="https://namu.wiki/w/%EC%9D%B5%EC%82%B0%EC%8B%9C" target="_blank" rel="nofollow noopener">나무위키 - 익산시 관련 상세 정보 및 역사</a></li>
+                <li><a href="https://www.ftc.go.kr/www/contents.do?key=675" target="_blank" rel="nofollow noopener">공정거래위원회 - 이사화물 표준약관 (소비자 권익 보호)</a></li>
+                <li><a href="https://www.kostat.go.kr/portal/korea/kor_nw/2/1/index.board?bmode=read&aSeq=434676" target="_blank" rel="nofollow noopener">통계청 - 익산시 인구 및 주거 관련 통계 자료</a></li>
+            </ul>
+            <p>위 외부 링크들은 **익산포장이사**와 관련된 행정, 지역, 법규 정보를 확인하는 데 도움이 될 것입니다. 특히 공정거래위원회의 표준약관을 확인하여 소비자의 권리를 이해하는 것이 중요합니다.</p>
+        </section>
+
+        <section class="faq-section">
+            <h2>❓ 자주 묻는 익산포장이사 질문 (FAQ)</h2>
+            <dl>
+                <dt tabindex="0" aria-expanded="false" class="faq-title">Q: **2026년** 이사 성수기는 언제인가요? 비용은 얼마나 상승하나요?</dt>
+                <dd>A: 이사 성수기는 보통 3~5월 봄철과 9~10월 가을철입니다. 특히 '손 없는 날'과 겹치는 주말은 가장 비싼 날로, 평소 대비 20~40%까지 **익산포장이사** 비용이 상승할 수 있습니다. 가능한 경우 성수기 평일을 이용하거나, 최소 2개월 전 예약하여 비용을 절감하는 것을 추천합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-title">Q: 현장 방문 견적은 꼭 받아야 하나요?</dt>
+                <dd>A: 네, 정확한 **익산포장이사** 비용 산출과 불필요한 추가 비용 방지를 위해 현장 방문 견적은 필수입니다. 짐의 양, 가구 특성, 작업 환경(진입로, 엘리베이터 크기 등)을 직접 확인해야 정확한 인력 및 차량 투입 계획을 세울 수 있으며, 이는 곧 고객님의 만족도와 직결됩니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-title">Q: 포장이사 후 정리정돈 서비스의 범위는 어디까지인가요?</dt>
+                <dd>A: **익산포장이사** 서비스에는 일반적으로 포장, 운반, 배치, 그리고 기본적인 정리정돈 및 청소 서비스가 포함됩니다. 주방 용품 정리, 거실/침실 가구 배치, 간단한 바닥 청소 등이 기본입니다. 다만, 전문적인 '입주청소' 수준의 대청소는 별도 옵션이며, 옷장 내부의 세부 정리나 액자 걸기 등은 서비스 범위에서 제외될 수 있으니 계약 시 확인해야 합니다.</dd>
+            </dl>
+        </section>
+
     </main>
-  </body>
+
+    <footer>
+        <p>익산 이사 전문가 그룹 &copy; 2026. All Rights Reserved. | 익산포장이사 문의: 010-1234-5678</p>
+    </footer>
+
+    <script>
+        // FAQ 아코디언 기능 (접기/펼치기) - 체류 시간 증대 효과
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+                
+                // Close all other open items
+                document.querySelectorAll('dl dt').forEach(item => {
+                    item.classList.remove('active');
+                    item.setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                }
+            });
+            // Keyboard navigation for accessibility
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+</body>
 </html>
